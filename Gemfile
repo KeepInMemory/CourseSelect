@@ -5,18 +5,17 @@ gem 'bootstrap-sass', '~> 3.3.7'
 gem 'bcrypt', '~> 3.1.11'
 gem 'faker', '~> 1.6.3'
 gem 'rails_admin', '~> 0.8.1'
-gem 'pry-rails'
-gem 'carrierwave'
-gem 'paperclip'
-gem 'will_paginate', '~> 3.1.6'
-gem 'bootstrap-will_paginate'
-gem 'roo'
-gem 'roo-xls'
-gem 'paper_trail'
-gem 'rubyzip', '~> 1.1.0'
-gem 'axlsx', '2.1.0.pre'
-gem 'axlsx_rails'
-gem 'rails-i18n'
+
+# gem 'carrierwave'
+# gem 'paperclip'
+gem 'will_paginate'
+# gem 'bootstrap-will_paginate'
+# gem 'roo'
+# gem 'roo-xls'
+# gem 'paper_trail'
+# gem 'rubyzip', '~> 1.1.0'
+# gem 'axlsx', '2.1.0.pre'
+# gem 'axlsx_rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.2'
@@ -67,5 +66,4 @@ end
 group :production do
   gem 'rails_12factor'
 end
-
 

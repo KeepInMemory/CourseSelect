@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20161109084337) do
     t.string   "course_time"
     t.string   "course_week"
     t.integer  "teacher_id"
+    t.string   "course_degree"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.boolean  "open",          default: false
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 20161109084337) do
     t.integer  "course_id"
     t.integer  "user_id"
     t.integer  "grade"
+    t.string   "degree",      default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

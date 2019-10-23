@@ -5,7 +5,6 @@ class CoursesController < ApplicationController
   before_action :logged_in, only: :index
 
   #-------------------------for teachers----------------------
-
   def new
     @course=Course.new
   end
@@ -56,7 +55,92 @@ class CoursesController < ApplicationController
   end
 
   #-------------------------for students----------------------
+  def degree
+    @courses = current_user.courses
+  end
+  def degree1
+    @course=Course.find_by_id(params[:id])
+    @course.update_attributes(:degree=>"是")
+    redirect_to courses_degree_path, flash: {:success => "已经成功设置#{ @course.name}为学位课！"}
+  end
+  def degree0
+    @course=Course.find_by_id(params[:id])
+    @course.update_attributes(:degree=>"否")
+    redirect_to courses_degree_path, flash: {:success => "已经成功设置#{ @course.name}为非学位课！"}
+  end
 
+  def credit
+    @courses = current_user.courses
+    @degree_credit = 0
+    @get_degree_credit=0
+    @sum_credit=0
+    @get_sum_credit=0
+    @public_credit=0
+    @get_public_credit=0
+    @public_must_credit=""
+    @get_public_must_credit=0
+
+    @courses.each do |course|
+      @credit = course.credit[3..5]
+
+      if course.name == "中国特色社会主义理论与实践研究"
+        @public_must_credit = @public_must_credit + course.name+"("+@credit + "学分"+")"+"\n"
+      end
+
+      if course.name == "自然辩证法概论"
+        @public_must_credit = @public_must_credit + course.name+"("+@credit + "学分"+")"+"\n"
+      end
+
+      if course.name == "硕士学位英语"
+        @public_must_credit = @public_must_credit + course.name+"("+@credit + "学分"+")"+"\n"
+      end
+
+
+      if course.course_type=="公共必修课"
+        current_user.grades.each do |grade|
+          if grade.grade != nil
+            if grade.course.name == course.name && grade.grade >= 60
+              @get_public_must_credit += @credit.to_f
+            end
+          end
+        end
+      end
+
+      if course.degree=="是"
+        @degree_credit += @credit.to_f
+        current_user.grades.each do |grade|
+          if grade.grade != nil
+            if grade.course.name == course.name && grade.grade >= 60
+              @get_degree_credit += @credit.to_f
+            end
+          end
+        end
+      end
+
+
+      if course.course_type=="公共选修课"
+        @public_credit += @credit.to_f
+        current_user.grades.each do |grade|
+          if grade.grade != nil
+            if grade.course.name == course.name && grade.grade >= 60
+              @get_public_credit += @credit.to_f
+            end
+          end
+        end
+      end
+
+      @sum_credit += @credit.to_f
+
+    end
+
+    current_user.grades.each do |grade|
+      if grade.grade != nil && grade.grade >= 60
+        @get_sum_credit += @credit.to_f
+      end
+    end
+
+  end
+  
   def list
     #-------QiaoCode--------
     @courses = Course.where(:open=>true).paginate(page: params[:page], per_page: 4)
@@ -90,6 +174,7 @@ class CoursesController < ApplicationController
   def index
     @course=current_user.teaching_courses.paginate(page: params[:page], per_page: 4) if teacher_logged_in?
     @course=current_user.courses.paginate(page: params[:page], per_page: 4) if student_logged_in?
+    @courses = current_user.courses if student_logged_in?
   end
 
 

@@ -47,6 +47,12 @@
                   <span class="label label-info pull-right"><%= current_user.courses.count %></span>
               <% end %>
             </li>
+            <li class="list-group-item">
+              <%= link_to credit_course_path(current_user.courses) do %>
+                  <span class="glyphicon glyphicon-chevron-right"></span> 选课学分提醒
+                  <span class="label label-info pull-right"><%= current_user.courses.count %></span>
+              <% end %>
+            </li>
         <% end %>
 
       </ul>
@@ -93,5 +99,44 @@
 
       </div>
     </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+
+          <% if student_logged_in? %>
+              <a data-toggle="collapse" data-parent="#accordion" href="#DegreeCollapse"><span class="glyphicon glyphicon-user"></span>
+                学位课</a>
+          <% end %>
+        </h4>
+      </div>
+
+      <div id="DegreeCollapse" class="panel-collapse collapse <%= "in" if ["degree"].include?(params[:controller]) %>">
+        <div class="list-group">
+
+          <% if teacher_logged_in? %>
+              <% current_user.teaching_courses.each do |course| %>
+                  <li class="list-group-item">
+                    <%= link_to courses_degree_path(course_id: course.id), :method => :get do %>
+                        <span class="glyphicon glyphicon-chevron-right"></span> <%= course.name %>
+                        <span class="label label-info pull-right"><%= course.users.length %></span>
+                    <% end %>
+                  </li>
+              <% end %>
+
+          <% end %>
+
+          <% if student_logged_in? %>
+              <li class="list-group-item">
+                <%= link_to courses_degree_path do %>
+                    <span class="glyphicon glyphicon-chevron-right"></span> 学位课
+                <% end %>
+              </li>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
