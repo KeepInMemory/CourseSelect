@@ -48,7 +48,7 @@
               <% end %>
             </li>
             <li class="list-group-item">
-              <%= link_to credit_course_path(current_user.courses) do %>
+              <%= link_to courses_credit_path do %>
                   <span class="glyphicon glyphicon-chevron-right"></span> 选课学分提醒
                   <span class="label label-info pull-right"><%= current_user.courses.count %></span>
               <% end %>
@@ -113,18 +113,6 @@
 
       <div id="DegreeCollapse" class="panel-collapse collapse <%= "in" if ["degree"].include?(params[:controller]) %>">
         <div class="list-group">
-
-          <% if teacher_logged_in? %>
-              <% current_user.teaching_courses.each do |course| %>
-                  <li class="list-group-item">
-                    <%= link_to courses_degree_path(course_id: course.id), :method => :get do %>
-                        <span class="glyphicon glyphicon-chevron-right"></span> <%= course.name %>
-                        <span class="label label-info pull-right"><%= course.users.length %></span>
-                    <% end %>
-                  </li>
-              <% end %>
-
-          <% end %>
 
           <% if student_logged_in? %>
               <li class="list-group-item">

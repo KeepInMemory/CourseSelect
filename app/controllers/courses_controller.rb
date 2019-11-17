@@ -58,12 +58,12 @@ class CoursesController < ApplicationController
   def degree
     @courses = current_user.courses
   end
-  def degree1
+  def setDegree
     @course=Course.find_by_id(params[:id])
     @course.update_attributes(:degree=>"是")
     redirect_to courses_degree_path, flash: {:success => "已经成功设置#{ @course.name}为学位课！"}
   end
-  def degree0
+  def setUnDegree
     @course=Course.find_by_id(params[:id])
     @course.update_attributes(:degree=>"否")
     redirect_to courses_degree_path, flash: {:success => "已经成功设置#{ @course.name}为非学位课！"}

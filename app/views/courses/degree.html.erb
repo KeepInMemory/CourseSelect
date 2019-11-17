@@ -8,7 +8,6 @@
       <div class="panel panel-primary">
         <div class="panel-heading">
           <% user_credit=0%>
-          <% if teacher_logged_in? %><h3 class="panel-title">学位课管理: <%=@course.name%></h3><% end %>
           <% if student_logged_in? %><h3 class="panel-title">学位课管理</h3><% end %>
         </div>
         <div class="panel-body" style="min-height: 450px">
@@ -34,11 +33,11 @@
                   <%else%>
                   <td>否</td>
                   <%end%>
-                  <%@courses=course%>
+                  <%@course = course %>
                       <% if course.degree=="是"%>
-                          <td><%= link_to "设为非学位课", grades_degree0_path(id:@course.id), class: 'btn btn-xs btn-info' %></td>
+                          <td><%= link_to "设为非学位课", courses_setUnDegree_path(id:@course.id), class: 'btn btn-xs btn-info' %></td>
                       <% else %>
-                          <td><%= link_to "设为学位课", grades_degree1_path(id:@course.id), class: 'btn btn-xs btn-info' %></td>
+                          <td><%= link_to "设为学位课", courses_setDegree_path(id:@course.id), class: 'btn btn-xs btn-info' %></td>
                       <% end %>
                 </tr>
             <% end %>
