@@ -13,10 +13,10 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  get 'courses/setDegree' =>'courses#setDegree'
-  get 'courses/setUnDegree' =>'courses#setUnDegree'
   get 'courses/credit' => 'courses#credit'
-  get 'courses/degree' => 'courses#degree'
+  get 'grades/degree' => 'grades#degree'
+  get 'grades/setDegree' =>'grades#setDegree'
+  get 'grades/setUnDegree' =>'grades#setUnDegree'
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root 'homes#index'
@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
   resources :grades, only: [:index, :update]
   resources :users
+
   get 'sessions/login' => 'sessions#new'
   post 'sessions/login' => 'sessions#create'
   delete 'sessions/logout' => 'sessions#destroy'

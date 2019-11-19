@@ -4,6 +4,7 @@ class CreateGrades < ActiveRecord::Migration
       t.belongs_to :course, index: true
       t.belongs_to :user, index: true
       t.integer :grade
+      t.boolean :degree, default: false
       t.timestamps null: false
     end
   end

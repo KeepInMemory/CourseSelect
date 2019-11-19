@@ -1,5 +1,5 @@
 class AddDegreeToGrades < ActiveRecord::Migration
   def change
-    add_column :grades, :degree, :string ,default: "是"
+    add_column :grades, :isDegree, :boolean ,default: false
   end
 end

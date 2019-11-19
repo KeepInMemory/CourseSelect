@@ -55,19 +55,6 @@ class CoursesController < ApplicationController
   end
 
   #-------------------------for students----------------------
-  def degree
-    @courses = current_user.courses
-  end
-  def setDegree
-    @course=Course.find_by_id(params[:id])
-    @course.update_attributes(:degree=>"是")
-    redirect_to courses_degree_path, flash: {:success => "已经成功设置#{ @course.name}为学位课！"}
-  end
-  def setUnDegree
-    @course=Course.find_by_id(params[:id])
-    @course.update_attributes(:degree=>"否")
-    redirect_to courses_degree_path, flash: {:success => "已经成功设置#{ @course.name}为非学位课！"}
-  end
 
   def credit
     @courses = current_user.courses
@@ -106,11 +93,13 @@ class CoursesController < ApplicationController
         end
       end
 
-      if course.degree=="是"
-        @degree_credit += @credit.to_f
-        current_user.grades.each do |grade|
+      current_user.grades.each do |grade|
+        if grade.course.name == course.name
+          if grade.isDegree == true
+            @degree_credit += @credit.to_f
+          end
           if grade.grade != nil
-            if grade.course.name == course.name && grade.grade >= 60
+            if grade.grade >= 60
               @get_degree_credit += @credit.to_f
             end
           end

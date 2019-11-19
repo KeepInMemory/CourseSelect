@@ -22,23 +22,23 @@
             </tr>
             </thead>
             <tbody>
-            <% @courses = current_user.courses %>
-            <% @courses.each do |course| %>
+
+            <% @grades.each do |grade| %>
                 <tr>
-                  <td><%= course.name %></td>
-                  <td><%= course.credit %></td>
-                  <td><%= course.teacher.name %></td>
-                  <%if course.degree=="是"%>
-                  <td>是</td>
+                  <td><%= grade.course.name %></td>
+                  <td><%= grade.course.credit %></td>
+                  <td><%= grade.course.teacher.name %></td>
+                  <%if grade.isDegree==true%>
+                      <td>是</td>
                   <%else%>
-                  <td>否</td>
+                      <td>否</td>
                   <%end%>
-                  <%@course = course %>
-                      <% if course.degree=="是"%>
-                          <td><%= link_to "设为非学位课", courses_setUnDegree_path(id:@course.id), class: 'btn btn-xs btn-info' %></td>
-                      <% else %>
-                          <td><%= link_to "设为学位课", courses_setDegree_path(id:@course.id), class: 'btn btn-xs btn-info' %></td>
-                      <% end %>
+                  <%@grade=grade%>
+                  <% if grade.isDegree? %>
+                      <td><%= link_to "设为非学位课", grades_setUnDegree_path(id:@grade.id), class: 'btn btn-xs btn-info' %></td>
+                  <% else %>
+                      <td><%= link_to "设为学位课", grades_setDegree_path(id:@grade.id), class: 'btn btn-xs btn-info' %></td>
+                  <% end %>
                 </tr>
             <% end %>
             </tbody>
