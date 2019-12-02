@@ -1,4 +1,5 @@
 class CoursesController < ApplicationController
+  include CoursesHelper
 
   before_action :student_logged_in, only: [:select, :quit, :list]
   before_action :teacher_logged_in, only: [:new, :create, :edit, :destroy, :update, :open, :close]#add open by qiao
@@ -131,12 +132,12 @@ class CoursesController < ApplicationController
   end
   
   def list
-    #-------QiaoCode--------
-    @courses = Course.where(:open=>true).paginate(page: params[:page], per_page: 4)
+
+    @courses = Course.paginate(page: params[:page], per_page: 40)
     @course = @courses-current_user.courses
     tmp=[]
     @course.each do |course|
-      if course.open==true
+      if course.open
         tmp<<course
       end
     end
@@ -144,10 +145,17 @@ class CoursesController < ApplicationController
   end
 
   def select
-    @course=Course.find_by_id(params[:id])
-    current_user.courses<<@course
-    flash={:suceess => "成功选择课程: #{@course.name}"}
-    redirect_to courses_path, flash: flash
+    @in_course_select_time = in_course_select_time?
+    if @in_course_select_time
+      @course=Course.find_by_id(params[:id])
+      current_user.courses<<@course
+      flash={:suceess => "成功选择课程: #{@course.name}"}
+      redirect_to courses_path, flash: flash
+    else
+      flash={:warning => "不在选课时间！"}
+      redirect_to courses_path, flash: flash
+    end
+
   end
 
   def quit

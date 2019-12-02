@@ -11,22 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191022120436) do
+ActiveRecord::Schema.define(version: 20191202074845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "activities", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "title"
-    t.string   "speaker"
-    t.string   "class_room"
-    t.string   "when"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"
@@ -41,9 +29,16 @@ ActiveRecord::Schema.define(version: 20191022120436) do
     t.string   "course_time"
     t.string   "course_week"
     t.integer  "teacher_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.boolean  "open",          default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "open",          default: true
+  end
+
+  create_table "ex_infos", force: :cascade do |t|
+    t.string   "name"
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "grades", force: :cascade do |t|
@@ -58,22 +53,6 @@ ActiveRecord::Schema.define(version: 20191022120436) do
 
   add_index "grades", ["course_id"], name: "index_grades_on_course_id", using: :btree
   add_index "grades", ["user_id"], name: "index_grades_on_user_id", using: :btree
-
-  create_table "notices", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "title"
-    t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "notices", ["user_id"], name: "index_notices_on_user_id", using: :btree
-
-  create_table "opensystems", force: :cascade do |t|
-    t.boolean  "isopen"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
