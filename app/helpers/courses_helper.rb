@@ -17,7 +17,11 @@ module CoursesHelper
     end_time = get_course_select_end_time
     in_course_select_time = (time_now<end_time && time_now >start_time)
   end
-  def find_grades_by_course?(_course)
-    grade = Grade.where(course: _course).take
+  def find_grades_by_course(_course)
+    # puts _course.id
+    grade = Grade.joins(:course).where(:course_id => _course.id).take
   end
+
+
+
 end

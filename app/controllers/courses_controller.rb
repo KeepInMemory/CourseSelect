@@ -71,20 +71,20 @@ class CoursesController < ApplicationController
     @courses.each do |course|
       @credit = course.credit[3..5]
 
-      if course.name == "中国特色社会主义理论与实践研究"
-        @public_must_credit = @public_must_credit + course.name+"("+@credit + "学分"+")"+"\n"
+      if course.name == '中国特色社会主义理论与实践研究'
+        @public_must_credit = @public_must_credit + course.name+'('+@credit + '学分'+')'+"\n"
       end
 
-      if course.name == "自然辩证法概论"
-        @public_must_credit = @public_must_credit + course.name+"("+@credit + "学分"+")"+"\n"
+      if course.name == '自然辩证法概论'
+        @public_must_credit = @public_must_credit + course.name+'('+@credit + '学分'+')'+"\n"
       end
 
-      if course.name == "硕士学位英语"
-        @public_must_credit = @public_must_credit + course.name+"("+@credit + "学分"+")"+"\n"
+      if course.name == '硕士学位英语'
+        @public_must_credit = @public_must_credit + course.name+'('+@credit + '学分'+')'+"\n"
       end
 
 
-      if course.course_type=="公共必修课"
+      if course.course_type=='公共必修课'
         current_user.grades.each do |grade|
           if grade.grade != nil
             if grade.course.name == course.name && grade.grade >= 60
@@ -96,7 +96,7 @@ class CoursesController < ApplicationController
 
       current_user.grades.each do |grade|
         if grade.course.name == course.name
-          if grade.isDegree == true
+          if grade.isDegree
             @degree_credit += @credit.to_f
           end
           if grade.grade != nil
@@ -108,7 +108,7 @@ class CoursesController < ApplicationController
       end
 
 
-      if course.course_type=="公共选修课"
+      if course.course_type=='公共选修课'
         @public_credit += @credit.to_f
         current_user.grades.each do |grade|
           if grade.grade != nil
@@ -132,8 +132,7 @@ class CoursesController < ApplicationController
   end
   
   def list
-
-    @courses = Course.paginate(page: params[:page], per_page: 40)
+    @courses = Course.where(:open=>true).paginate(page: params[:page], per_page: 40)
     @course = @courses-current_user.courses
     tmp=[]
     @course.each do |course|
@@ -148,21 +147,49 @@ class CoursesController < ApplicationController
     @in_course_select_time = in_course_select_time?
     if @in_course_select_time
       @course=Course.find_by_id(params[:id])
-      current_user.courses<<@course
-      flash={:suceess => "成功选择课程: #{@course.name}"}
-      redirect_to courses_path, flash: flash
+      @cur_courses = current_user.courses
+      @cur_courses.each do |cur_course|
+        if cur_course.id == @course.id
+          flash = {warning: "课程: #{@course.name} 已存在"}
+          redirect_to courses_path, flash: flash
+          return
+        end
+      end
+      if @course.limit_num == nil || @course.student_num < @course.limit_num
+        current_user.courses<<@course
+        student_number = @course.student_num + 1
+        @course.update_attributes!(:student_num => student_number)
+        flash = {suceess: "成功选择课程: #{@course.name}"}
+        redirect_to courses_path, flash: flash
+      else
+        flash = {error: '选课人数已满'}
+        redirect_to courses_path, flash: flash
+      end
+
+
     else
-      flash={:warning => "不在选课时间！"}
+      flash={warning: '不在选课时间！'}
       redirect_to courses_path, flash: flash
     end
 
   end
 
   def quit
-    @course=Course.find_by_id(params[:id])
-    current_user.courses.delete(@course)
-    flash={:success => "成功退选课程: #{@course.name}"}
-    redirect_to courses_path, flash: flash
+    @in_course_select_time = in_course_select_time?
+    if @in_course_select_time
+      @course=Course.find_by_id(params[:id])
+      if @course.student_num > 0
+        current_user.courses.delete(@course)
+        student_number = @course.student_num - 1
+        @course.update_attributes!(:student_num => student_number)
+        flash={:success => "成功退选课程: #{@course.name}"}
+        redirect_to courses_path, flash: flash
+      else
+        flash={:error => '系统出现问题，请联系管理员解决'}
+        redirect_to courses_path, flash: flash
+      end
+
+    end
   end
 
 

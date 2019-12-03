@@ -40,8 +40,8 @@
                   <td><%= course.teaching_type %></td>
                   <td><%= course.exam_type %></td>
                   <td><%= course.teacher.name %></td>
-                  <% @in_course_select_time = in_course_select_time? %>
-                  <% if @in_course_select_time %>
+                  <% in_course_select_time = in_course_select_time? %>
+                  <% if in_course_select_time %>
                   <td><%= link_to "加入课程", select_course_path(course), class: 'btn-sm btn-info' %></td>
                   <% end %>
                 </tr>

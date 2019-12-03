@@ -8,36 +8,65 @@
       <div class="panel panel-primary">
         <div class="panel-heading">
           <% user_credit=0%>
-          <% if student_logged_in? %><h3 class="panel-title">学位课管理</h3><% end %>
+          <div class="panel-heading">
+            <% if teacher_logged_in? %><h3 class="panel-title">授课列表</h3>
+            <% end %>
+            <% if student_logged_in? %><h3 class="panel-title">已选课程</h3>
+            <% end %>
+          </div>
         </div>
         <div class="panel-body" style="min-height: 450px">
           <table class="table table-striped table-hover">
             <thead>
 
             <tr>
-              <th>课程名</th>
-              <th>学时学分</th>
-              <th>授课老师</th>
-              <th>学位课</th>
+              <th>课程编号</th>
+              <th>课程名称</th>
+              <th>课时/学分</th>
+              <th>课程属性</th>
+              <th>是否学位课</th>
+              <th>考试方式</th>
+              <th>主讲教师</th>
             </tr>
             </thead>
             <tbody>
 
             <% @grades.each do |grade| %>
                 <tr>
+                  <td><%= grade.course.course_code %></td>
                   <td><%= grade.course.name %></td>
                   <td><%= grade.course.credit %></td>
-                  <td><%= grade.course.teacher.name %></td>
-                  <%if grade.isDegree%>
+                  <td><%= grade.course.course_type %></td>
+                  <%if grade.isDegree %>
                       <td>是</td>
                   <%else%>
                       <td>否</td>
                   <%end%>
-                  <%@grade=grade%>
-                  <% if grade.isDegree? %>
-                      <td><%= link_to "设为非学位课", grades_setUnDegree_path(id:@grade.id), class: 'btn btn-xs btn-info' %></td>
-                  <% else %>
-                      <td><%= link_to "设为学位课", grades_setDegree_path(id:@grade.id), class: 'btn btn-xs btn-info' %></td>
+                  <td><%= grade.course.exam_type %></td>
+
+
+                  <td><%= grade.course.teacher.name %></td>
+
+                  <% if teacher_logged_in? %>
+                      <td><%= link_to "编辑", edit_course_url(grade.course), class: 'btn btn-xs btn-info' %></td>
+                      <% if course.open? %>
+                          <td><%= link_to "关闭", close_course_url(grade.course), class: 'btn btn-xs btn-info' %></td>
+                      <% else %>
+                          <td><%= link_to "开通", open_course_url(grade.course), class: 'btn btn-xs btn-info' %></td>
+                      <% end %>
+                      <td><%= link_to "删除", course_path(grade.course), :method => "delete", class: 'btn btn-xs btn-danger', :data => {confirm: '确定要删除此课程?'} %></td>
+                  <% elsif student_logged_in? %>
+                      <% in_course_select_time = in_course_select_time? %>
+                      <% if in_course_select_time %>
+                          <td><%= link_to '删除', quit_course_path(grade.course), class: 'btn-sm btn-danger' %></td>
+                      <% end %>
+
+                      <%@grade=grade%>
+                      <% if grade.isDegree? %>
+                          <td><%= link_to "设为非学位课", grades_setUnDegree_path(id:@grade.id), class: 'btn btn-xs btn-info' %></td>
+                      <% else %>
+                          <td><%= link_to "设为学位课", grades_setDegree_path(id:@grade.id), class: 'btn btn-xs btn-info' %></td>
+                      <% end %>
                   <% end %>
                 </tr>
             <% end %>
