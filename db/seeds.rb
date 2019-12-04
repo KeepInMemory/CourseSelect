@@ -56,7 +56,7 @@ ExInfo.create(
 )
 ExInfo.create(
     name: "select_course_end",
-    value: "2019-10-10 00:00",
+    value: "2019-12-31 00:00",
 )
 
 teacher_map={
@@ -157,7 +157,7 @@ teacher_map.keys.each do |index|
   )
 
 end
-
+include CoursesHelper
 (1..200).each do |index|
   student=User.create!(
       name: StudentGenerator.name,
@@ -171,7 +171,14 @@ end
 
   course_array=(1..34).to_a.sort { rand() - 0.5 }[1..rand(4..8)]
   course_array.each do |index|
-    student.courses<<Course.find(index)
+    @course = Course.find(index)
+    if @course.limit_num == nil  || @course.student_num.to_i < @course.limit_num.to_i
+      if !(courses_conflict(student.courses, @course)[:conflict])
+        student_number = @course.student_num + 1
+        @course.update_attributes!(:student_num => student_number)
+        student.courses<<@course
+      end
+    end
   end
 
 end

@@ -24,6 +24,8 @@
               <th>课程名称</th>
               <th>课时/学分</th>
               <th>课程属性</th>
+              <th>开课周</th>
+              <th>星期节次</th>
               <th>是否学位课</th>
               <th>考试方式</th>
               <th>主讲教师</th>
@@ -37,6 +39,8 @@
                   <td><%= grade.course.name %></td>
                   <td><%= grade.course.credit %></td>
                   <td><%= grade.course.course_type %></td>
+                  <td><%= grade.course.course_week%></td>
+                  <td><%= grade.course.course_time %></td>
                   <%if grade.isDegree %>
                       <td>是</td>
                   <%else%>

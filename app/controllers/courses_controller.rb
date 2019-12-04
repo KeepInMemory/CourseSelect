@@ -151,25 +151,31 @@ class CoursesController < ApplicationController
       @cur_courses.each do |cur_course|
         if cur_course.id == @course.id
           flash = {warning: "课程: #{@course.name} 已存在"}
-          redirect_to courses_path, flash: flash
+          redirect_to grades_degree_path, flash: flash
           return
         end
       end
       if @course.limit_num == nil || @course.student_num < @course.limit_num
-        current_user.courses<<@course
-        student_number = @course.student_num + 1
-        @course.update_attributes!(:student_num => student_number)
-        flash = {suceess: "成功选择课程: #{@course.name}"}
-        redirect_to courses_path, flash: flash
+        ret = courses_conflict(current_user.courses,@course)
+        if !ret[:conflict]
+          current_user.courses<<@course
+          student_number = @course.student_num + 1
+          @course.update_attributes!(:student_num => student_number)
+          flash = {suceess: "成功选择课程: #{@course.name}"}
+          redirect_to grades_degree_path, flash: flash
+        else
+          flash = {fail: "所选课程与 #{ret[:course_name]} 冲突"}
+          redirect_to grades_degree_path, flash: flash
+        end
       else
         flash = {error: '选课人数已满'}
-        redirect_to courses_path, flash: flash
+        redirect_to grades_degree_path, flash: flash
       end
 
 
     else
       flash={warning: '不在选课时间！'}
-      redirect_to courses_path, flash: flash
+      redirect_to grades_degree_path, flash: flash
     end
 
   end
@@ -183,10 +189,10 @@ class CoursesController < ApplicationController
         student_number = @course.student_num - 1
         @course.update_attributes!(:student_num => student_number)
         flash={:success => "成功退选课程: #{@course.name}"}
-        redirect_to courses_path, flash: flash
+        redirect_to grades_degree_path, flash: flash
       else
         flash={:error => '系统出现问题，请联系管理员解决'}
-        redirect_to courses_path, flash: flash
+        redirect_to grades_degree_path, flash: flash
       end
 
     end

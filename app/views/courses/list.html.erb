@@ -20,6 +20,8 @@
               <th>限选</th>
               <th>已选</th>
               <th>课程属性</th>
+              <th>开课周</th>
+              <th>星期节次</th>
               <th>授课方式</th>
               <th>考试方式</th>
               <th>主讲教师</th>
@@ -37,6 +39,8 @@
                   <td><%= course.limit_num %></td>
                   <td><%= course.student_num %></td>
                   <td><%= course.course_type %></td>
+                  <td><%= course.course_week%></td>
+                  <td><%= course.course_time %></td>
                   <td><%= course.teaching_type %></td>
                   <td><%= course.exam_type %></td>
                   <td><%= course.teacher.name %></td>
