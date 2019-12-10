@@ -23,9 +23,14 @@
               <th>课程名称</th>
               <th>课时/学分</th>
               <th>课程属性</th>
-              <th>是否学位课</th>
+              <%if student_logged_in?%>
+                <th>是否学位课</th>
+              <%end%>
               <th>考试方式</th>
-              <th>主讲教师</th>
+              <%if student_logged_in?%>
+                  <th>主讲教师</th>
+              <%end%>
+
             </tr>
 
             <tbody>
@@ -38,11 +43,14 @@
                   <td><%= course.name %></td>
                   <td><%= course.credit %></td>
                   <td><%= course.course_type %></td>
-                  <td><%= grade[:isDegree] %></td>
-
+                  <% if student_logged_in? %>
+                    <td><%= grade[:isDegree] %></td>
+                  <% end %>
                   <td><%= course.exam_type %></td>
+                  <% if student_logged_in? %>
+                      <td><%= course.teacher.name %></td>
+                  <% end %>
 
-                  <td><%= course.teacher.name %></td>
 
                   <% if teacher_logged_in? %>
                       <td><%= link_to "编辑", edit_course_url(course), class: 'btn btn-xs btn-info' %></td>

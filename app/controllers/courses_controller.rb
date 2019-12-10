@@ -69,10 +69,10 @@ class CoursesController < ApplicationController
     @get_public_must_credit=0
 
     @courses.each do |course|
-      @credit = course.credit[3..5]
+      @credit = course.credit.split('/')[1]
 
       if course.name == '中国特色社会主义理论与实践研究'
-        @public_must_credit = @public_must_credit + course.name+'('+@credit + '学分'+')'+"\n"
+        @public_must_credit = @public_must_credit + course.name+'('+ @credit + '学分'+')'+"\n"
       end
 
       if course.name == '自然辩证法概论'
