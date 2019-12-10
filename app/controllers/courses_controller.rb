@@ -168,7 +168,7 @@ class CoursesController < ApplicationController
           redirect_to grades_degree_path, flash: flash
         end
       else
-        flash = {error: '选课人数已满'}
+        flash = {error: "#{@course.name} 选课人数已满"}
         redirect_to grades_degree_path, flash: flash
       end
 

@@ -18,7 +18,7 @@ RailsAdmin.config do |config|
 
   # == Authenticate ==
   config.authorize_with do
-    if !current_user.admin
+    unless current_user.admin
       redirect_to main_app.root_url, flash: {:danger => '请先以管理员身份登陆'}
     end
   end
@@ -50,13 +50,13 @@ RailsAdmin.config do |config|
     index                         # mandatory
     new
     export
-    history_index
+    # history_index
     bulk_delete
     # member actions
     show
     edit
     delete
-    history_show
+    # history_show
     # show_in_app
   end
 end
