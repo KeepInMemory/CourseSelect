@@ -1,5 +1,4 @@
-# CourseSelect [![Build Status](https://travis-ci.org/PENGZhaoqing/CourseSelect.svg?branch=master)](https://travis-ci.org/PENGZhaoqing/CourseSelect)
-[![Build Status](https://travis-ci.com/KeepInMemory/CourseSelect.svg?branch=dev)](https://travis-ci.com/KeepInMemory/CourseSelect)
+# CourseSelect [![Build Status](https://travis-ci.com/KeepInMemory/CourseSelect.svg?branch=dev)](https://travis-ci.com/KeepInMemory/CourseSelect)
 
 ### [中文教程1](http://blog.csdn.net/ppp8300885/article/details/52594839) [中文教程2](http://blog.csdn.net/ppp8300885/article/details/52601560) [中文教程3](http://blog.csdn.net/ppp8300885/article/details/52669749) [Wiki](https://github.com/PENGZhaoqing/CourseSelect/wiki)
 
