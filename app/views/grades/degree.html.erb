@@ -26,9 +26,10 @@
               <th>课程属性</th>
               <th>开课周</th>
               <th>星期节次</th>
-              <th>是否学位课</th>
+
               <th>考试方式</th>
               <th>主讲教师</th>
+              <th>是否学位课</th>
             </tr>
             </thead>
             <tbody>
@@ -41,11 +42,7 @@
                   <td><%= grade.course.course_type %></td>
                   <td><%= grade.course.course_week%></td>
                   <td><%= grade.course.course_time %></td>
-                  <%if grade.isDegree %>
-                      <td>是</td>
-                  <%else%>
-                      <td>否</td>
-                  <%end%>
+
                   <td><%= grade.course.exam_type %></td>
 
 
@@ -60,17 +57,16 @@
                       <% end %>
                       <td><%= link_to "删除", course_path(grade.course), :method => "delete", class: 'btn btn-xs btn-danger', :data => {confirm: '确定要删除此课程?'} %></td>
                   <% elsif student_logged_in? %>
+                      <td>
+                        <%= check_box_tag checked=grade.isDegree? %>
+                      </td>
                       <% in_course_select_time = in_course_select_time? %>
                       <% if in_course_select_time %>
                           <td><%= link_to '删除', quit_course_path(grade.course), class: 'btn-sm btn-danger' %></td>
                       <% end %>
 
                       <%@grade=grade%>
-                      <% if grade.isDegree? %>
-                          <td><%= link_to "设为非学位课", grades_setUnDegree_path(id:@grade.id), class: 'btn btn-xs btn-info' %></td>
-                      <% else %>
-                          <td><%= link_to "设为学位课", grades_setDegree_path(id:@grade.id), class: 'btn btn-xs btn-info' %></td>
-                      <% end %>
+
                   <% end %>
                 </tr>
             <% end %>

@@ -123,13 +123,13 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="actionmailer (v4.2.5.2, RVM: ruby-2.2.4) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="actionpack (v4.2.5.2, RVM: ruby-2.2.4) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="actionview (v4.2.5.2, RVM: ruby-2.2.4) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="activejob (v4.2.5.2, RVM: ruby-2.2.4) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="activemodel (v4.2.5.2, RVM: ruby-2.2.4) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="activerecord (v4.2.5.2, RVM: ruby-2.2.4) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="activesupport (v4.2.5.2, RVM: ruby-2.2.4) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="actionmailer (v4.2.8, RVM: ruby-2.2.4) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="actionpack (v4.2.8, RVM: ruby-2.2.4) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="actionview (v4.2.8, RVM: ruby-2.2.4) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="activejob (v4.2.8, RVM: ruby-2.2.4) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="activemodel (v4.2.8, RVM: ruby-2.2.4) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="activerecord (v4.2.8, RVM: ruby-2.2.4) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="activesupport (v4.2.8, RVM: ruby-2.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="arel (v6.0.4, RVM: ruby-2.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="autoprefixer-rails (v9.7.3, RVM: ruby-2.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bcrypt (v3.1.13, RVM: ruby-2.2.4) [gem]" level="application" />
@@ -169,7 +169,7 @@
     <orderEntry type="library" scope="PROVIDED" name="rack (v1.6.11, RVM: ruby-2.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-pjax (v0.8.0, RVM: ruby-2.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-test (v0.6.3, RVM: ruby-2.2.4) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rails (v4.2.5.2, RVM: ruby-2.2.4) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rails (v4.2.8, RVM: ruby-2.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails-deprecated_sanitizer (v1.0.3, RVM: ruby-2.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails-dom-testing (v1.0.9, RVM: ruby-2.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails-html-sanitizer (v1.3.0, RVM: ruby-2.2.4) [gem]" level="application" />
@@ -177,7 +177,7 @@
     <orderEntry type="library" scope="PROVIDED" name="rails_admin (v0.8.1, RVM: ruby-2.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails_serve_static_assets (v0.0.5, RVM: ruby-2.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails_stdout_logging (v0.0.5, RVM: ruby-2.2.4) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="railties (v4.2.5.2, RVM: ruby-2.2.4) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="railties (v4.2.8, RVM: ruby-2.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rake (v13.0.1, RVM: ruby-2.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rb-fsevent (v0.10.3, RVM: ruby-2.2.4) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rb-inotify (v0.10.0, RVM: ruby-2.2.4) [gem]" level="application" />

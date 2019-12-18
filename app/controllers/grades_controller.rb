@@ -4,30 +4,12 @@ class GradesController < ApplicationController
 
   def update
     @grade=Grade.find_by_id(params[:id])
-    @grade_credit = @grade.course.credit.split('/')[1].to_f
-    @student= @grade.user
-    @student_credits = @student.credits
-    if !@grade.has_gain_credit && params[:grade][:grade].to_i >= 60
-      if @grade.update_attributes!(:has_gain_credit => true,:grade => params[:grade][:grade]) \
-        && @student.update_attributes!(:credits => @student.credits + @grade_credit)
-        flash={:success => "#{@grade.user.name} #{@grade.course.name}的成绩已成功修改为 #{@grade.grade}"}
-      else
-        flash={:danger => "上传失败.请重试"}
-      end
 
-    elsif @grade.has_gain_credit && params[:grade][:grade].to_i < 60
-      if @grade.update_attributes!(:has_gain_credit => false,:grade => params[:grade][:grade]) \
-        && @student.update_attributes!(:credits => @student.credits - @grade_credit)
+
+    if @grade.update_attributes!(:grade => params[:grade][:grade])
         flash={:success => "#{@grade.user.name} #{@grade.course.name}的成绩已成功修改为 #{@grade.grade}"}
-      else
-        flash={:danger => "上传失败.请重试"}
-      end
     else
-      if @grade.update_attributes!(:grade => params[:grade][:grade])
-        flash={:success => "#{@grade.user.name} #{@grade.course.name}的成绩已成功修改为 #{@grade.grade}"}
-      else
         flash={:danger => "上传失败.请重试"}
-      end
     end
     redirect_to grades_path(course_id: params[:course_id]), flash: flash
   end

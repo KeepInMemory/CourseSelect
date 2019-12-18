@@ -31,9 +31,8 @@ footer {
 }
 
 .body-background{
-  background-image: image-url('background.jpg');
   //background-color: #DADADA;
-  //background-repeat: no-repeat;
+  background: image-url('background.jpeg') no-repeat;
   //background-size: 100% 100%;
 }
 
