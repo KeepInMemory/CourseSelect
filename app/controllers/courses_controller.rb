@@ -95,7 +95,7 @@ class CoursesController < ApplicationController
       end
 
       current_user.grades.each do |grade|
-        if grade.course.name == course.name
+        if grade.course.id == course.id
           if grade.isDegree
             @degree_credit += @credit.to_f
           end
@@ -164,11 +164,11 @@ class CoursesController < ApplicationController
           flash = {suceess: "成功选择课程: #{@course.name}"}
           redirect_to grades_degree_path, flash: flash
         else
-          flash = {fail: "所选课程与 #{ret[:course_name]} 冲突"}
+          flash = {warning: "所选课程与 #{ret[:course_name]} 冲突"}
           redirect_to grades_degree_path, flash: flash
         end
       else
-        flash = {error: "#{@course.name} 选课人数已满,该课程限选 #{@course.limit_num}"}
+        flash = {warning: "#{@course.name} 选课人数已满,该课程限选 #{@course.limit_num} 人"}
         redirect_to grades_degree_path, flash: flash
       end
 
