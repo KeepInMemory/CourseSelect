@@ -7,9 +7,9 @@ class GradesController < ApplicationController
 
 
     if @grade.update_attributes!(:grade => params[:grade][:grade])
-        flash={:success => "#{@grade.user.name} #{@grade.course.name}的成绩已成功修改为 #{@grade.grade}"}
+      flash={:success => "#{@grade.user.name} #{@grade.course.name}的成绩已成功修改为 #{@grade.grade}"}
     else
-        flash={:danger => "上传失败.请重试"}
+      flash={:danger => "上传失败.请重试"}
     end
     redirect_to grades_path(course_id: params[:course_id]), flash: flash
   end
@@ -39,12 +39,12 @@ class GradesController < ApplicationController
 
   def setDegree
     @grade=Grade.find_by_id(params[:id])
-    @grade.update_attributes(:isDegree=>true)
+    @grade.update(:isDegree=>true)
     redirect_to grades_degree_path, flash: {:success => "已经成功设置#{ @grade.course.name}为学位课！"}
   end
   def setUnDegree
     @grade=Grade.find_by_id(params[:id])
-    @grade.update_attributes(:isDegree=>false)
+    @grade.update(:isDegree=>false)
     redirect_to grades_degree_path, flash: {:success => "已经成功设置#{ @grade.course.name}为非学位课！"}
   end
 

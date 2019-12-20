@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(version: 20191218144846) do
     t.integer  "course_id"
     t.integer  "user_id"
     t.integer  "grade"
-    t.boolean  "degree",     default: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.boolean  "isDegree",   default: false
