@@ -17,7 +17,7 @@
 //= require_tree .
 
 
-$('document').ready(function () {
+$(document).on('turbolinks:load', function () {
     $('.is-degree-input').on('change', function () {
         var id = $(this).data('grade-id');
         var url;
