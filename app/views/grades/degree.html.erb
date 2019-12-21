@@ -62,7 +62,7 @@
                       </td>
                       <% in_course_select_time = in_course_select_time? %>
                       <% if in_course_select_time %>
-                          <td><%= link_to '删除', quit_course_path(grade.course), class: 'btn-sm btn-danger' %></td>
+                          <td><%= link_to '退选', quit_course_path(grade.course), class: 'btn-sm btn-danger' %></td>
                       <% end %>
 
                   <% end %>
