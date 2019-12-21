@@ -28,4 +28,4 @@ $(document).on('turbolinks:load', function () {
         }
         location.href = url + '?id=' + id
     })
-})
+});

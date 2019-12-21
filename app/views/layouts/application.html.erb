@@ -10,8 +10,7 @@
   <%= csrf_meta_tags %>
 </head>
 
-<body class="<%= "body-background" if params[:controller]!="homes" %>">
-
+<body class="<%= params[:controller]!="homes" ? "body-background": "main-background" %>">
 <%= render partial: 'layouts/header' %>
 <%= render partial: 'layouts/content' %>
 <%= render partial: 'layouts/footer' %>
