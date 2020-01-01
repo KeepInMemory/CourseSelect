@@ -98,10 +98,15 @@ class CoursesController < ApplicationController
         if grade.course.id == course.id
           if grade.isDegree
             @degree_credit += @credit.to_f
+            if grade.grade != nil
+              if grade.grade >= 60
+                @get_degree_credit += @credit.to_f
+              end
+            end
           end
           if grade.grade != nil
             if grade.grade >= 60
-              @get_degree_credit += @credit.to_f
+              @get_sum_credit += @credit.to_f
             end
           end
         end
@@ -120,12 +125,8 @@ class CoursesController < ApplicationController
       end
 
       @sum_credit += @credit.to_f
+      if course
 
-    end
-
-    current_user.grades.each do |grade|
-      if grade.grade != nil && grade.grade >= 60
-        @get_sum_credit += @credit.to_f
       end
     end
 
