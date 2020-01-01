@@ -1,22 +1,11 @@
 # CourseSelect [![Build Status](https://travis-ci.com/KeepInMemory/CourseSelect.svg?branch=dev)](https://travis-ci.com/KeepInMemory/CourseSelect)
 
-### [中文教程1](http://blog.csdn.net/ppp8300885/article/details/52594839) [中文教程2](http://blog.csdn.net/ppp8300885/article/details/52601560) [中文教程3](http://blog.csdn.net/ppp8300885/article/details/52669749) [Wiki](https://github.com/PENGZhaoqing/CourseSelect/wiki)
+演示demo看[这里](https://ucascs.herokuapp.com/)
+本系统是基于[校园选课系统样本](https://github.com/PENGZhaoqing/CourseSelect) 开发
 
 
-这个样本系统是基于国科大研究生课程 (高级软件工程) 开发的项目,目的是帮助入门者学习RoR (Ruby on Rails),
 
-适合新学者的入手的第一个项目 ([演示Demo戳这里](https://courseselect.herokuapp.com/ ))，入门者可以在这个样本系统上增加更多的功能:
-
-* 处理选课冲突、控制选课人数
-* 统计选课学分，学位课等
-* 增加选课的开放、关闭功能
-* 自定义管理员后台
-* 基于OAuth的授权登陆
-* Excel格式的数据导入
-* 绑定用户邮箱（实现注册激活，忘记密码等）
-* 站内查找检索 （课程按分类查找，过滤等）
-
-### 目前功能：
+### 原选课系统功能：
 
 * 多角色登陆（学生，老师，管理员）
 * 学生动态选课，退课
@@ -24,17 +13,29 @@
 * 老师对课程下的学生添加、修改成绩
 * 权限控制：老师和学生只能看到自己相关课程信息
 
-**如果觉得好，给项目点颗星吧～**
+### 新增功能：
+
+* 选课冲突处理
+* 选课学分提示
+* 学位课/非学位课设置
+* 选课开放与关闭
+
 
 ### 截图
 
-<img src="/lib/screenshot1.png" width="700">  
+![](./lib/screenshot.jpg)
 
-<img src="/lib/screenshot2.png" width="700">
+![](./lib/screenshot3.jpg)
 
-<img src="/lib/screenshot3.png" width="700">   
+![](./lib/screenshot4.jpg)
 
-<img src="/lib/screenshot4.png" width="700">
+![](./lib/screenshot2.jpg)
+
+![](./lib/screenshot1.jpg)
+
+
+
+
 
 ## 说明
 
@@ -54,10 +55,10 @@
 在终端（MacOS或Linux）中执行以下代码
 
 ```
-$ git clone https://github.com/PENGZhaoqing/CourseSelect
+$ git clone https://github.com/KeepInMemory/CourseSelect.git
 $ cd CourseSelect
 $ bundle install
-$ rake db:migrate
+$ rake db:migrate:reset
 $ rake db:seed
 $ rails s 
 ```
@@ -88,38 +89,15 @@ $ rails s
 账号中数字都可以替换成2,3...等等
 
 
-## Heroku云部署
 
-项目可直接在Heroku上免费部署
-
-1.fork此项目到自己Github账号下
-
-2.创建Heroku账号以及Heroku app
-
-3.将Heroku app与自己Github下的fork的项目进行连接
-
-4.下载配置[Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line)命令行工具
-
-5.运行`heroku login`在终端登陆，检查与heroku app的远程连接情况`git config --list | grep heroku`，若未检查到相应的app，请看[这里](http://stackoverflow.com/questions/5129598/how-to-link-a-folder-with-an-existing-heroku-app)
-
-6.运行部署，详情[请戳这里](https://devcenter.heroku.com/articles/getting-started-with-rails4#rails-asset-pipeline)
 
 
 ## 本地测试
 
 本项目包含了部分的测试（integration/fixture/model test），测试文件位于/test目录下。一键运行所有测试使用`rake test`：
 
-```
-PENG-MacBook-Pro:IMS_sample PENG-mac$ rake test
-Run options: --seed 15794
+![](./lib/screenshot6.jpg)
 
-# Running:
-.........
-
-Finished in 1.202169s, 7.4865 runs/s, 16.6366 assertions/s.
-
-9 runs, 20 assertions, 0 failures, 0 errors, 0 skips
-```
 
 ### 模型测试
 
@@ -194,41 +172,8 @@ end
 
 3. 运行`rake test`,成功后会根目录的coverage下生成一个index.html文件，用浏览器打开能看到结果如下：
 
-  <img src="/lib/screenshot5.png" width="700">  
-
-  <img src="/lib/screenshot6.png" width="700">  
+![](./lib/screenshot5.jpg)
 
 
-## Travis CI 线上自动测试
-
-上述为本地测试，我们可以使用Travis CI来实现自动测试，首先申请一个Travis CI的账号，然后与自己的github连接起来，接着在自己项目根目录中增加一个新的文件`.travis.yml`如下，这个文件中指定了测试需要的ruby版本，数据库等配置以及一些测试前的脚本操作，当你的github发生更新后，Travis CI会自动触发测试（需要你在Travis CI中自己设置自动/手动触发），然后读取你的`.travis.yml`文件配置进行测试，其实也就是把本地测试拉到服务器上进行，测试成功后会在你的github项目给一个buliding pass的标签（见CourseSelect题目旁边），代表当前的代码是通过测试的
-
-```
-language: ruby
-
-rvm:
-  - 2.2
-
-env:
-  - DB=pgsql
-
-services:
-  - postgresql
-
-script:
-  - RAILS_ENV=test bundle exec rake db:migrate --trace
-  - bundle exec rake db:test:prepare
-  - bundle exec rake
-
-before_script:
-  - cp config/database.yml.travis config/database.yml
-  - psql -c 'create database courseselect_test;' -U postgres
-```
-
-## How to Contribute
-
-先fork此项目，在分支修改后，pull request到主分支
-
-提问请到issues里创建，欢迎contributor！
 
 
